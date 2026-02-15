@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,140 +7,331 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="lang-switcher">
+        <button class="lang-btn" onclick="toggleLangMenu(event)">
+            <svg class="globe-icon" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+            </svg>
+            <span id="current-lang-text">English</span>
+        </button>
+        <div id="lang-menu" class="lang-dropdown">
+            <div class="lang-item" onclick="setLang('en')">🇺🇸 English</div>
+            <div class="lang-item" onclick="setLang('ru')">🇷🇺 Русский</div>
+            <div class="lang-item" onclick="setLang('kz')">🇰🇿 Қазақша</div>
+            <div class="lang-item" onclick="setLang('by')">🇧🇾 Беларуская</div>
+        </div>
+    </div>
 
     <div id="home-page" class="page active">
         <header>
             <h1 class="title">TengeOS</h1>
-            <p class="subtitle">New, best custom rom of HyperOS</p>
-            <a href="https://t.me/TengeOS_Roms" class="telegram-link" target="_blank">Telegram: @TengeOS_Roms</a>
-            <p class="credits">by @wectazz and @iduchamp</p>
+            <p class="subtitle" data-i18n="subtitle">New, best custom rom of HyperOS</p>
+            <a href="https://t.me/TengeOS_Roms" target="_blank" style="color:#a855f7; text-decoration:none; font-weight:500;">Telegram: @TengeOS_Roms</a>
+            <p style="opacity:0.5; font-size:0.9rem; margin-top:10px;">by @wectazz and @duchamp</p>
         </header>
 
         <div class="cards-container">
             <div class="card">
-                <div class="card-content">
-                    <div class="card-header">
-                        <h2>TengeOS Port</h2>
-                        <p class="version">3.0.300.4.WONCNXM</p>
-                        <p class="device">#duchamp</p>
-                    </div>
-                    <div class="changelog">
-                        <p>Changelog and bugs:</p>
-                        <ul>
-                            <li>Pre-root SukuSU Ultra with SusFS</li>
-                            <li>Modded system apps by @kakashi1v1</li>
-                            <li>Choice: root or rootless</li>
-                            <li>Incorrect memory mapping in settings</li>
-                            <li>Based on Redmi K80 Ultra (dali)</li>
-                        </ul>
-                    </div>
+                <div class="card-header">
+    <h2 data-i18n="port_title">TengeOS Port</h2>
+    <p style="opacity:0.6; font-size:0.9rem; font-family:monospace; margin: 2px 0;">3.0.300.4.WONCNXM</p>
+    <p style="color:#a855f7; font-weight:700; margin: 0;">#duchamp</p>
+</div>
+                <div class="changelog">
+                    <p data-i18n="changelog_title">Changelog and bugs:</p>
+                    <ul data-i18n="changelog_port">
+                        <li>Deleted 10 seconds warning</li>
+                        <li>Added custom boot anim and logo</li>
+                        <li>Added monet picker</li>
+                        <li>Added 1 hz selection (full 120 hz)</li>
+                        <li>Added custom system apps (security, themes, apk installer, launcher, systemui, app vault)</li>
+                        <li>Added full russian language</li>
+                        <li>Disabled signature verification and apk protection</li>
+                        <li>Added Kaorios Toolbox</li>
+                        <li>SukiSU Ultra (40499) pre-rooted, you need only to download apk from folder</li>
+                    </ul>
                 </div>
-                <div class="card-actions">
-                    <a href="https://t.me/DuchampROM_screenshots/4" target="_blank" class="btn btn-outline">Screenshots</a>
-                    <button class="btn btn-solid" onclick="showDownloads('port')">Download ROM</button>
+                <div class="card-actions" style="display:flex; gap:12px; margin-top:20px;">
+                    <a href="https://t.me/DuchampROM_screenshots/4" target="_blank" class="btn btn-outline" data-i18n="screenshots">Screenshots</a>
+                    <button class="btn btn-solid" onclick="goToDownload('port')" data-i18n="download">Download</button>
                 </div>
             </div>
 
             <div class="card">
-                <div class="card-content">
-                    <div class="card-header">
-                        <h2>TengeOS Mod</h2>
-                        <p class="version">1.0.5.0.WNLCNXM</p>
-                        <p class="device">#duchamp</p>
-                    </div>
-                    <div class="changelog">
-                        <p>Changelog and bugs:</p>
-                        <ul>
-                            <li>Pre-root SukuSU Ultra with SusFS</li>
-                            <li>Modded system apps by @kakashi1v1</li>
-                            <li>Choice: root or rootless</li>
-                            <li>Based on official HyperOS build</li>
-                        </ul>
-                    </div>
+                <div class="card-header">
+    <h2 data-i18n="port_title">TengeOS Mod</h2>
+    <p style="opacity:0.6; font-size:0.9rem; font-family:monospace; margin: 2px 0;">3.0.5.0.WNLCNXM</p>
+    <p style="color:#a855f7; font-weight:700; margin: 0;">#duchamp</p>
+</div>
+                <div class="changelog">
+                    <p data-i18n="changelog_title">Changelog and bugs:</p>
+                    <ul data-i18n="changelog_mod">
+                        <li>Deleted 10 seconds warning</li>
+                        <li>Added custom boot anim and logo</li>
+                        <li>Added monet picker</li>
+                        <li>Decrypted rom</li>
+                        <li>Added custom system apps (security, themes, apk installer, launcher, systemui, app vault)</li>
+                        <li>Added full russian language</li>
+                        <li>Disabled signature verification and apk protection</li>
+                        <li>Added Kaorios Toolbox</li>
+                        <li>SukiSU Ultra (40499) pre-rooted, you need only to download apk from folder</li>
+                    </ul>
                 </div>
-                <div class="card-actions">
-                    <a href="https://t.me/DuchampROM_screenshots/21?single" target="_blank" class="btn btn-outline">Screenshots</a>
-                    <button class="btn btn-solid" onclick="showDownloads('mod')">Download ROM</button>
+                <div class="card-actions" style="display:flex; gap:12px; margin-top:20px;">
+                    <a href="https://t.me/DuchampROM_screenshots/21?single" target="_blank" class="btn btn-outline" data-i18n="screenshots">Screenshots</a>
+                    <button class="btn btn-solid" onclick="goToDownload('mod')" data-i18n="download">Download</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="download-page" class="page hidden">
-        <div class="download-container">
-            <h2 id="dl-title">Загрузка прошивки</h2>
-            <p class="subtitle">Pick mirror for download:</p>
-            
-            <div id="dl-buttons" class="download-list">
-                </div>
-
-            <button class="btn-back" onclick="showHome()">← Back</button>
+    <div id="download-page" class="page">
+        <div class="download-card">
+            <h2 id="dl-title" style="font-size: 2.5rem; margin-bottom: 10px;">Download</h2>
+            <p class="subtitle" data-i18n="pick_mirror">Pick mirror for download:</p>
+            <div id="dl-buttons" style="margin-top: 40px;"></div>
+            <button class="btn btn-outline" onclick="goToHome()" style="margin-top: 40px; width: auto; padding: 12px 50px;" data-i18n="back">← Back</button>
         </div>
     </div>
 
     <script>
-        // Данные для скачивания
-        const romData = {
-            'port': {
-                title: 'TengeOS Port',
-                // Ссылка на Google Drive
-                mirrorName: 'Google Drive',
-                link: 'https://drive.google.com/file/d/1pRKrcdmdKFNE9hOiZ7PafHSue2vBiiOB/view?usp=sharing'
-            },
-            'mod': {
-                title: 'TengeOS Mod',
-                // Ссылка на Gofile
-                mirrorName: 'Gofile',
-                link: 'https://gofile.io/d/8eaEC5'
-            }
-        };
+        const translations = {
+    'en': { 
+        name: 'English', 
+        subtitle: "New, best custom rom of HyperOS", 
+        port_title: "TengeOS Port", 
+        mod_title: "TengeOS Mod", 
+        changelog_title: "Changelog and bugs:",
+        changelog_port: [
+            "Deleted 10 seconds warning",
+            "Added custom boot anim and logo",
+            "Added monet picker",
+            "Added 1 hz selection (full 120 hz)",
+            "Added custom system apps (security, themes, apk installer, launcher, systemui, app vault)",
+            "Added full russian language",
+            "Disabled signature verification and apk protection",
+            "Added Kaorios Toolbox",
+            "SukiSU Ultra (40499) pre-rooted"
+        ],
+        changelog_mod: [
+            "Deleted 10 seconds warning",
+            "Added custom boot anim and logo",
+            "Added monet picker",
+            "Decrypted rom",
+            "Added custom system apps (security, themes, apk installer, launcher, systemui, app vault)",
+            "Added full russian language",
+            "Disabled signature verification and apk protection",
+            "Added Kaorios Toolbox",
+            "SukiSU Ultra (40499) pre-rooted"
+        ],
+        screenshots: "Screenshots", download: "Download", pick_mirror: "Pick mirror for download:", back: "← Back", mirror_label: "Mirror:" 
+    },
+    'ru': { 
+        name: 'Русский', 
+        subtitle: "Новый, лучший кастом HyperOS", 
+        port_title: "TengeOS Port", 
+        mod_title: "TengeOS Mod", 
+        changelog_title: "Список изменений:",
+        changelog_port: [
+            "Удалено 10-секундное предупреждение",
+            "Добавлена кастомная загрузочная анимация и лого",
+            "Добавлен Monet Picker (цвет акцентов)",
+            "Добавлен выбор 1 Гц (полные 120 Гц)",
+            "Кастомные системные приложения (Безопасность, Темы, установщик апк, лаунчер, сустем юи плагин, виджеты)",
+            "Добавлен полный русский язык",
+            "Отключена проверка подписи и защита APK",
+            "Добавлен Kaorios Toolbox",
+            "SukiSU Ultra (40499) встроен"
+        ],
+        changelog_mod: [
+            "Удалено 10-секундное предупреждение",
+            "Добавлена кастомная загрузочная анимация и лого",
+            "Добавлен Monet Picker (цвет акцентов)",
+            "Расшифрованная прошивка (Decrypted)",
+            "Кастомные системные приложения (Безопасность, Темы, установщик апк, лаунчер, сустем юи плагин, виджеты)",
+            "Добавлен полный русский язык",
+            "Отключена проверка подписи и защита APK",
+            "Добавлен Kaorios Toolbox",
+            "SukiSU Ultra (40499) встроен"
+        ],
+        screenshots: "Скриншоты", download: "Скачать", pick_mirror: "Выберите зеркало для загрузки:", back: "← Назад", mirror_label: "Зеркало:" 
+    },
+    'kz': { 
+        name: 'Қазақша', 
+        subtitle: "HyperOS-тың жаңа, үздік кастомдық прошивкасы", 
+        port_title: "TengeOS Port", 
+        mod_title: "TengeOS Mod", 
+        changelog_title: "Өзгерістер:", 
+        changelog_port: [
+            "10 секундтық ескерту жойылды",
+            "Арнайы жүктеу анимациясы мен логотипі қосылды",
+            "Monet Picker қосылды",
+            "1 Гц таңдау мүмкіндігі қосылды (толық 120 Гц)",
+            "Жүйелік қолданбалар жаңартылды",
+            "Толық орыс тілі қосылды",
+            "Қолтаңбаны тексеру өшірілді",
+            "Kaorios Toolbox қосылды",
+            "SukiSU Ultra алдын ала орнатылған"
+        ],
+        changelog_mod: [
+            "10 секундтық ескерту жойылды",
+            "Арнайы жүктеу анимациясы мен логотипі қосылды",
+            "Monet Picker қосылды",
+            "Шифрланбаған прошивка (Decrypted)",
+            "Жүйелік қолданбалар жаңартылды",
+            "Толық орыс тілі қосылды",
+            "Қолтаңбаны тексеру өшірілді",
+            "Kaorios Toolbox қосылды",
+            "SukiSU Ultra алдын ала орнатылған"
+        ],
+        screenshots: "Скриншоттар", download: "Жүктеу", pick_mirror: "Жүктеу үшін айнаны таңдаңыз:", back: "← Артқа", mirror_label: "Айна:" 
+    },
+    'by': { 
+        name: 'Беларуская', 
+        subtitle: "Новы, лепшы кастам HyperOS", 
+        port_title: "TengeOS Port", 
+        mod_title: "TengeOS Mod", 
+        changelog_title: "Спіс змяненняў:", 
+        changelog_port: [
+            "Выдалена 10-секунднае папярэджанне",
+            "Дададзена кастамная загрузачная анімацыя і лагатып",
+            "Дададзены Monet Picker",
+            "Выбар 1 Гц (поўныя 120 Гц)",
+            "Кастамныя сістэмныя праграмы",
+            "Дададзена поўная руская мова",
+            "Адключана праверка подпісу",
+            "Дададзены Kaorios Toolbox",
+            "SukiSU Ultra убудаваны"
+        ],
+        changelog_mod: [
+            "Выдалена 10-секунднае папярэджанне",
+            "Дададзена кастамная загрузачная анімацыя і лагатып",
+            "Дададзены Monet Picker",
+            "Расшыфраваная прашыўка (Decrypted)",
+            "Кастамныя сістэмныя праграмы",
+            "Дададзена поўная руская мова",
+            "Адключана праверка подпісу",
+            "Дададзены Kaorios Toolbox",
+            "SukiSU Ultra убудаваны"
+        ],
+        screenshots: "Скрыншоты", download: "Спампаваць", pick_mirror: "Выберыце люстэрка для загрузкі:", back: "← Назад", mirror_label: "Люстэрка:" 
+    }
+};
 
-        function showDownloads(type) {
-    const home = document.getElementById('home-page');
-    const downloads = document.getElementById('download-page');
-    const titleEl = document.getElementById('dl-title');
-    const listEl = document.getElementById('dl-buttons');
 
-    const data = romData[type];
-    titleEl.textContent = data.title;
-    listEl.innerHTML = `
-        <div class="download-item">
-            <span>Mirror: ${data.mirrorName}</span>
-            <a href="${data.link}" target="_blank" class="btn-sm">Download</a>
-        </div>
-    `;
+        let currentLang = 'en';
 
-    // 1. Начинаем затухание текущей страницы
-    home.classList.remove('active');
+        function toggleLangMenu(e) {
+            e.stopPropagation();
+            document.getElementById('lang-menu').classList.toggle('show');
+        }
+        window.onclick = () => document.getElementById('lang-menu').classList.remove('show');
 
-    // 2. Ждем 500мс (пока закончится анимация затухания)
-    setTimeout(() => {
-        home.classList.add('hidden'); // Убираем главную совсем
-        downloads.classList.remove('hidden'); // Включаем структуру зеркал
+        function setLang(lang) {
+    currentLang = lang;
+    document.getElementById('current-lang-text').textContent = translations[lang].name;
+    
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const data = translations[lang][key];
         
-        // 3. Даем браузеру 50мс, чтобы он "понял", что блок появился
-        setTimeout(() => {
-            downloads.classList.add('active'); // Включаем плавное появление
-        }, 50);
+        if (Array.isArray(data)) {
+            el.innerHTML = data.map(item => `<li>${item}</li>`).join('');
+        } else if (data) {
+            el.textContent = data;
+        }
+    });
+}
+        
+
+        // База данных прошивок с их зеркалами
+const romData = {
+    'port': [
+        { name: 'Google Drive', link: 'https://drive.google.com/file/d/1pRKrcdmdKFNE9hOiZ7PafHSue2vBiiOB/view?usp=sharing' }
+    ],
+    'mod': [
+        { name: 'Gofile', link: 'https://gofile.io/d/8eaEC5' }
+    ]
+};
+
+function goToDownload(type) {
+    const t = translations[currentLang];
+    const dlTitle = document.getElementById('dl-title');
+    const dlButtonsContainer = document.getElementById('dl-buttons');
+    
+    // Устанавливаем заголовок
+    dlTitle.textContent = type === 'port' ? t.port_title : t.mod_title;
+    
+    // Очищаем контейнер и добавляем зеркала из базы данных
+    dlButtonsContainer.innerHTML = ''; 
+    
+    const mirrors = romData[type];
+    
+    mirrors.forEach(mirror => {
+        const mirrorRow = document.createElement('div');
+        // Стили вынесены в классы для красоты, но тут оставил inline для совместимости с твоим кодом
+        mirrorRow.style.cssText = "background:rgba(255,255,255,0.05); padding:15px 20px; border-radius:20px; display:flex; justify-content:space-between; align-items:center; border: 1px solid rgba(168,85,247,0.2); margin-bottom: 12px;";
+        
+        mirrorRow.innerHTML = `
+            <span>${t.mirror_label} <b>${mirror.name}</b></span>
+            <a href="${mirror.link}" target="_blank" class="btn btn-solid" style="flex:none; padding:10px 25px; min-width:120px;">Download</a>
+        `;
+        dlButtonsContainer.appendChild(mirrorRow);
+    });
+    
+    // Переключение страниц
+    document.getElementById('home-page').classList.remove('active');
+    setTimeout(() => { 
+        document.getElementById('download-page').classList.add('active'); 
     }, 500);
 }
 
-function showHome() {
-    const home = document.getElementById('home-page');
-    const downloads = document.getElementById('download-page');
+        function goToHome() {
+            document.getElementById('download-page').classList.remove('active');
+            setTimeout(() => { document.getElementById('home-page').classList.add('active'); }, 500);
+        }
 
-    // 1. Затухание зеркал
-    downloads.classList.remove('active');
-
-    setTimeout(() => {
-        downloads.classList.add('hidden');
-        home.classList.remove('hidden');
-
-        setTimeout(() => {
-            home.classList.add('active');
-        }, 50);
-    }, 500);
+        // Particles
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            for(let i=0; i<60; i++) particles.push({
+                x: Math.random()*canvas.width, 
+                y: Math.random()*canvas.height, 
+                vx: (Math.random()-0.5)*0.5, 
+                vy: (Math.random()-0.5)*0.5
+            });
+        }
+        function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    
+    // Сделай цвет частиц ярче (0.6 или 0.8 вместо 0.3)
+    ctx.fillStyle = "rgba(168, 85, 247, 0.6)"; 
+    
+    particles.forEach(p => {
+        p.x += p.vx; p.y += p.vy;
+        if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
+        
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+        
+        // Добавим эффект свечения частицам
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = "#a855f7";
+        
+        ctx.fill();
+    });
+    requestAnimationFrame(draw);
 }
+        init(); draw();
+        window.onresize = init;
     </script>
 </body>
 </html>

@@ -1,199 +1,185 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 body {
     margin: 0;
-    font-family: 'Inter', -apple-system, sans-serif;
-    background: radial-gradient(circle at bottom, #1e1b4b 0%, #020617 100%);
+    font-family: 'Inter', sans-serif;
+    background: #020617;
     color: white;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
-/* Анимация */
-.page { transition: opacity 0.5s ease; width: 100%; padding: 40px 20px; box-sizing: border-box; }
-.hidden { display: none; opacity: 0; }
-.active { display: block; opacity: 1; }
-.fade-out { opacity: 0; }
-.fade-in { opacity: 1; }
-
-.title { 
-    font-family: 'Mi Sans', 'Inter', sans-serif; 
-    font-weight: 500; 
-    font-size: 4rem; 
-    margin: 0; 
-    text-align: center;
+#particle-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(circle at center, #2e1065 0%, #020617 100%);
 }
 
-header { text-align: center; margin-bottom: 50px; }
-.subtitle { color: #94a3b8; font-size: 1.2rem; margin: 5px 0; }
-.telegram-link { color: #38bdf8; text-decoration: none; display: block; margin: 10px 0; font-weight: 500; }
-.credits { color: #64748b; font-size: 0.9rem; }
+/* --- АНИМАЦИЯ СТРАНИЦ --- */
+.page { 
+    width: 100%; 
+    padding: 40px 20px; 
+    box-sizing: border-box; 
+    position: absolute;
+    top: 0; left: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
+}
 
+.page.active { 
+    opacity: 1; 
+    visibility: visible;
+    transform: translateY(0);
+}
+
+header { text-align: center; margin-bottom: 60px; padding-top: 30px; }
+.title { font-weight: 700; font-size: clamp(2.5rem, 8vw, 4.5rem); margin: 0; color: #ffffff; }
+.subtitle { color: #a78bfa; font-size: 1.1rem; margin: 10px 0; }
+
+/* --- КАРТОЧКИ И БЛЮР --- */
 .cards-container {
     display: flex;
     justify-content: center;
-    gap: 25px;
-    flex-wrap: wrap;
-    align-items: stretch; 
+    gap: 35px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.card, .download-card {
+    /* Цвет стал светлее (0.5 вместо 0.4) и насыщеннее */
+    background: rgba(30, 41, 59, 0.205); 
+    
+    /* Усиленный блюр для мягкости */
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    
+    /* Делаем рамку ярче, чтобы подчеркнуть эффект стекла */
+    border: 1px solid rgba(168, 85, 247, 0.4); 
+    border-radius: 30px;
+    
+    /* Тень вокруг блока добавит глубины и свечения */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card-header h2 { 
+    font-size: 1.6rem; 
+    margin: 0; 
+    line-height: 1.2; /* Делает строку заголовка плотнее */
 }
 
 .card {
-    background: rgba(30, 41, 59, 0.4);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 32px;
-    padding: 30px;
-    width: 450px;
+    padding: 25px 30px 30px 30px; /* Уменьшил верхний отступ с 20px до 15px */
+    flex: 1;
+    max-width: 700px;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
 }
 
-.card-content { flex-grow: 1; }
-.card-header h2 { font-size: 1.8rem; margin: 0; }
-
-/* УВЕЛИЧЕННЫЙ ШРИФТ ВЕРСИИ */
-.version { 
-    color: #cbd5e1; 
-    font-family: monospace; 
-    margin: 8px 0; 
-    font-size: 1.10rem; /* Сделал больше */
-    font-weight: 500;
-}
-
-.device { color: #38bdf8; font-weight: 600; margin-bottom: 20px; }
-
+/* Уменьшим расстояние от тега #duchamp до списка изменений */
 .changelog {
     background: rgba(0, 0, 0, 0.2);
-    padding: 20px;
+    padding: 16px;
     border-radius: 20px;
-    margin-bottom: 30px;
+    margin-top: 15px; /* Добавь это, чтобы прижать блок выше */
+    margin-bottom: 20px;
+    flex-grow: 1;
 }
 
-.changelog ul { padding-left: 20px; color: #cbd5e1; line-height: 1.6; }
-
-.card-actions {
-    display: flex;
-    gap: 12px;
-    margin-top: auto;
+.card:hover {
+    transform: scale(1.03);
+    border-color: rgba(168, 85, 247, 0.6);
+    box-shadow: 0 0 40px rgba(168, 85, 247, 0.2);
 }
 
-/* ОБЩИЙ СТИЛЬ КНОПОК */
+
+.changelog p { margin-top: 0; font-weight: 600; color: #e9d5ff; }
+.changelog ul { margin-top: 0; padding-left: 20px; }
+
+.download-card {
+    max-width: 800px;
+    margin: 80px auto;
+    padding: 50px;
+    text-align: center;
+}
+
+/* --- КНОПКИ --- */
 .btn {
     flex: 1;
-    padding: 16px;
-    border-radius: 50px;
-    font-family: 'Inter', sans-serif;
+    padding: 14px;
+    border-radius: 20px;
     font-weight: 700;
-    font-size: 1rem;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
     transition: all 0.3s ease;
-    display: flex; /* Чтобы текст был ровно по центру */
-    align-items: center;
-    justify-content: center;
-}
-
-.btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* СПЛОШНАЯ КНОПКА (Download) */
-.btn-solid {
-    background: white;
-    color: black;
     border: none;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    display: inline-block;
 }
 
-/* ПРОЗРАЧНАЯ КНОПКА С ОБВОДКОЙ (Screenshots) */
-.btn-outline {
-    background: transparent;
+.btn-solid { background: #a855f7; color: white; }
+.btn-solid:hover { 
+    background: #6366f1; 
+    transform: scale(1.05); 
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.5); 
+}
+
+.btn-outline { background: transparent; color: white; border: 1px solid rgba(168, 85, 247, 0.4); }
+.btn-outline:hover { 
+    border-color: #e879f9; 
+    transform: scale(1.05); 
+    box-shadow: 0 0 20px rgba(172, 74, 172, 0.5); 
+    background: rgba(168, 85, 247, 0.1); 
+}
+
+/* --- ВЫБОР ЯЗЫКА --- */
+.lang-switcher { position: fixed; top: 20px; right: 20px; z-index: 2000; }
+.lang-btn {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(168, 85, 247, 0.3);
     color: white;
-    border: 2px solid rgba(255, 255, 255, 0.2); /* Полупрозрачная рамка */
-}
-
-.btn-outline:hover {
-    border-color: white; /* При наведении рамка становится ярко-белой */
-    background: rgba(255, 255, 255, 0.05);
-}
-
-/* Страница скачивания */
-.download-container {
-    max-width: 600px;
-    margin: 80px auto;
-    background: rgba(15, 23, 42, 0.9);
-    padding: 40px;
-    border-radius: 35px;
-    border: 1px solid rgba(255,255,255,0.1);
-    text-align: center;
-}
-
-.download-list { margin: 30px 0; }
-.download-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-.btn-sm {
-    background: #4f46e5;
-    color: white;
-    text-decoration: none;
-    padding: 10px 25px;
-    border-radius: 50px;
-    font-weight: 700;
-    font-size: 0.9rem;
-    transition: 0.2s;
-}
-
-.btn-sm:hover { background: #4338ca; }
-
-.btn-back {
-    background: none;
-    border: 1px solid rgba(255,255,255,0.2);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 50px;
+    padding: 10px 18px;
+    border-radius: 30px;
     cursor: pointer;
-    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+    font-weight: 600;
 }
+.lang-btn:hover { border-color: #a855f7; background: rgba(168, 85, 247, 0.2); transform: scale(1.05); box-shadow: 0 0 20px rgba(224, 99, 241, 0.5);  }
 
-/* БАЗОВЫЙ СТИЛЬ СТРАНИЦ */
-.page {
-    width: 100%;
-    padding: 40px 20px;
-    box-sizing: border-box;
-    /* Плавность только для прозрачности */
-    transition: opacity 0.5s ease-in-out;
-    opacity: 0; /* Изначально всё прозрачное */
+.globe-icon { width: 18px; height: 18px; fill: #a855f7; }
+
+.lang-dropdown {
+    display: none;
+    position: absolute;
+    top: 55px;
+    right: 0;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 15px;
+    width: 160px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
+.lang-dropdown.show { display: block; animation: fadeIn 0.2s ease; }
+.lang-item { padding: 12px 15px; cursor: pointer; transition: 0.2s; font-size: 0.9rem; }
+.lang-item:hover { background: rgba(168, 85, 247, 0.2); }
 
-/* Активное состояние (видимое) */
-.page.active {
-    opacity: 1;
-}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Физическое скрытие (когда страница не нужна) */
-.hidden {
-    display: none !important;
-}
-
-/* Твои настройки шрифтов (проверь их наличие) */
-.title { 
-    font-family: 'Mi Sans', 'Inter', sans-serif; 
-    font-weight: 500; 
-    font-size: 4rem; 
-    text-align: center;
-    margin: 0;
-}
-
-.version { 
-    color: #cbd5e1; 
-    font-family: monospace; 
-    margin: 8px 0; 
-    font-weight: 500; 
-    font-size: 1.10rem;
+@media (max-width: 1100px) {
+    .cards-container { flex-wrap: wrap; }
+    .card { max-width: 100%; }
 }
