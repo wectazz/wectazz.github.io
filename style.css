@@ -83,13 +83,35 @@ header { text-align: center; margin-bottom: 60px; padding-top: 30px; }
 }
 
 /* Уменьшим расстояние от тега #duchamp до списка изменений */
+/* Уменьшим расстояние от тега #duchamp до списка изменений */
 .changelog {
     background: rgba(0, 0, 0, 0.2);
     padding: 16px;
     border-radius: 20px;
-    margin-top: 15px; /* Добавь это, чтобы прижать блок выше */
+    margin-top: 15px; 
     margin-bottom: 20px;
     flex-grow: 1;
+    
+    /* ФИКСИРОВАННЫЙ РАЗМЕР И ПРОКРУТКА */
+    max-height: 150px; /* Установите желаемую высоту (например, 250px или 300px) */
+    overflow-y: auto;  /* Включает вертикальную прокрутку */
+    scrollbar-width: thin; /* Тонкий скроллбар для Firefox */
+    scrollbar-color: rgba(168, 85, 247, 0.5) transparent; /* Цвет скроллбара */
+}
+
+/* Кастомизация скроллбара для Chrome/Safari/Edge */
+.changelog::-webkit-scrollbar {
+    width: 6px;
+}
+.changelog::-webkit-scrollbar-track {
+    background: transparent;
+}
+.changelog::-webkit-scrollbar-thumb {
+    background: rgba(168, 85, 247, 0.4);
+    border-radius: 10px;
+}
+.changelog::-webkit-scrollbar-thumb:hover {
+    background: rgba(168, 85, 247, 0.7);
 }
 
 .card:hover {
